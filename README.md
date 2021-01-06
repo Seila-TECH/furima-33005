@@ -12,12 +12,11 @@
 | first_name_furi    | string      | null: false               |
 | last_name_furi     | string      | null: false               |
 | birthday           | date        | null: false               |
-| purchase           | references  | foreign_key: true         |
 
 ### Association
 
 - has_many :items
-- belongs_to :purchase
+- has_many :purchases
 
 ## items テーブル
 
@@ -32,37 +31,36 @@
 | shipping_date_id | integer     | null: false          |
 | price            | integer     | null: false          |
 | user             | references  | foreign_key: true    |
-| purchase         | references  | foreign_key: true    |
 
 ### Association
 
 - belongs_to :user
-- belongs_to :purchase
+- has_one :purchase
 
 ## purchases テーブル
 
-| Column          | Type        | Options              |
-| --------------- | ----------- | -------------------- |
-| users           | references  | foreign_key: true    |
-| items           | references  | foreign_key: true    |
+| Column         | Type        | Options              |
+| -------------- | ----------- | -------------------- |
+| user           | references  | foreign_key: true    |
+| item           | references  | foreign_key: true    |
 
 ### Association
 
-- has_many :items
-- has_many :users
+- belongs_to :item
+- belongs_to :user
 - has_one :shipping
 
 # shipping テーブル
 
-| Column          | Type        | Options              |
-| --------------- | ----------- | -------------------- |
-| postal          | string      | null: false          |
-| city            | string      | null: false          |
-| address         | string      | null: false          |
-| address_number  | string      | null: false          |
-| address_piso    | string      |                      |
-| phone_number    | integer     | null: false          |
-| purchase        | references  | foreign_key: true    |
+| Column           | Type        | Options              |
+| ---------------- | ----------- | -------------------- |
+| postal           | string      | null: false          |
+| shipping_area_id | integer     | null: false          |
+| address          | string      | null: false          |
+| address_number   | string      | null: false          |
+| address_building | string      |                      |
+| phone_number     | string      | null: false          |
+| purchase         | references  | foreign_key: true    |
 
 ### Association
 
