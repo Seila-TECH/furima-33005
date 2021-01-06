@@ -2,22 +2,22 @@
 
 ## users テーブル
 
-| Column            | Type        | Options                   |
-| ----------------- | ----------- | ------------------------- |
-| nickname          | string      | null: false               |
-| email             | string      | null: false, unique: true |
-| password          | string      | null: false               |
-|encrypted_password | string      | null: false               |
-| first_name        | string      | null: false               |
-| last_name         | string      | null: false               |
-| first_name_furi   | string      | null: false               |
-| last_name_furi    | string      | null: false               |
-| birthday          | date        | null: false               |
+| Column             | Type        | Options                   |
+| ------------------ | ----------- | ------------------------- |
+| nickname           | string      | null: false               |
+| email              | string      | null: false, unique: true |
+| encrypted_password | string      | null: false               |
+| first_name         | string      | null: false               |
+| last_name          | string      | null: false               |
+| first_name_furi    | string      | null: false               |
+| last_name_furi     | string      | null: false               |
+| birthday           | date        | null: false               |
+| purchase           | references  | foreign_key: true         |
 
 ### Association
 
 - has_many :items
-- has_many :payments
+- belongs_to :purchase
 
 ## items テーブル
 
@@ -32,14 +32,27 @@
 | shipping_date_id | integer     | null: false          |
 | price            | integer     | null: false          |
 | user             | references  | foreign_key: true    |
-| payment          | references  | foreign_key: true    |
+| purchase         | references  | foreign_key: true    |
 
 ### Association
 
 - belongs_to :user
-- belongs_to :payment
+- belongs_to :purchase
 
-## payments テーブル
+## purchases テーブル
+
+| Column          | Type        | Options              |
+| --------------- | ----------- | -------------------- |
+| users           | references  | foreign_key: true    |
+| items           | references  | foreign_key: true    |
+
+### Association
+
+- has_many :items
+- has_many :users
+- has_one :shipping
+
+# shipping テーブル
 
 | Column          | Type        | Options              |
 | --------------- | ----------- | -------------------- |
@@ -49,9 +62,8 @@
 | address_number  | string      | null: false          |
 | address_piso    | string      |                      |
 | phone_number    | integer     | null: false          |
-| user            | references  | foreign_key: true    |
+| purchase        | references  | foreign_key: true    |
 
 ### Association
 
-- has_many :items
-- belongs_to :user
+- belongs_to :purchase
