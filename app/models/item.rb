@@ -18,7 +18,7 @@ class Item < ApplicationRecord
   end
   
   extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :genre
+  belongs_to :category
   belongs_to :item_status
   belongs_to :shipping_fee
   belongs_to :shipping_date
