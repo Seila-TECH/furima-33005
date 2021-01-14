@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :summary_confirmation, only: [:edit, :update]
+  before_action :summary_confirmation, only: [:edit, :update, :show]
 
   def index
     @items = Item.all.includes(:user).order("created_at DESC")
@@ -20,7 +20,6 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
   end
 
   def edit
