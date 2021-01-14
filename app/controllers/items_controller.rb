@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :summary_confirmation, only: [:edit, :update]
 
   def index
     @items = Item.all.includes(:user).order("created_at DESC")
@@ -23,7 +24,6 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    @item = Item.find(params[:id])
     @item.save
     unless user_signed_in? && current_user.id == @item.user_id
       redirect_to action: :index
@@ -31,7 +31,6 @@ class ItemsController < ApplicationController
   end
 
   def update
-    @item = Item.find(params[:id])
     if @item.update(item_params)
       redirect_to item_path
     else
@@ -45,4 +44,7 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:item_name, :item_profile, :category_id, :item_status_id, :shipping_fee_id, :shipping_erea_id, :shipping_date_id, :price, :image).merge(user_id: current_user.id)
   end
 
+  def summary_confirmation
+    @item = Item.find(params[:id])
+  end
 end
