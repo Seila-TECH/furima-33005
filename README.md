@@ -27,7 +27,7 @@
 | category_id      | integer     | null: false          |
 | item_status_id   | integer     | null: false          |
 | shipping_fee_id  | integer     | null: false          |
-| shipping_area_id | integer     | null: false          |
+| shipping_erea_id | integer     | null: false          |
 | shipping_date_id | integer     | null: false          |
 | price            | integer     | null: false          |
 | user             | references  | foreign_key: true    |
@@ -55,11 +55,11 @@
 | Column           | Type        | Options              |
 | ---------------- | ----------- | -------------------- |
 | postal           | string      | null: false          |
-| shipping_area_id | integer     | null: false          |
+| shipping_erea_id | integer     | null: false          |
 | address          | string      | null: false          |
 | address_number   | string      | null: false          |
 | address_building | string      |                      |
-| phone_number     | string      | null: false          |
+| telphone_number     | string      | null: false          |
 | purchase         | references  | foreign_key: true    |
 
 ### Association
